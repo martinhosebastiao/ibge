@@ -12,7 +12,4 @@
   <ItemGroup>
     <Folder Include="Repositories\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IBGE.Domains.Shared.Abstraction\IBGE.Domains.Shared.Abstraction.csproj" />
-  </ItemGroup>
 </Project>
