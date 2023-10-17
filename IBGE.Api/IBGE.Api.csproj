@@ -24,6 +24,8 @@
     <None Remove="Application\ViewModels\" />
     <None Remove="Application\Interfaces\" />
     <None Remove="Application\Validations\" />
+    <None Remove="Domain\Notifications\" />
+    <None Remove="Application\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
@@ -36,5 +38,7 @@
     <Folder Include="Application\ViewModels\" />
     <Folder Include="Application\Interfaces\" />
     <Folder Include="Application\Validations\" />
+    <Folder Include="Domain\Notifications\" />
+    <Folder Include="Application\Services\" />
   </ItemGroup>
 </Project>

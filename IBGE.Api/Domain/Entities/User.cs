@@ -1,5 +1,5 @@
 ﻿using System;
-using IBGE.Domains.Core.ValueObjects;
+using IBGE.Api.Domains.ValueObjects;
 
 namespace IBGE.Api.Domains.Entities
 {
