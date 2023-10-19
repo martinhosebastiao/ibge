@@ -1,17 +1,18 @@
 ﻿using System;
-namespace IBGE.Api.Domains.ValueObjects
+using IBGE.Api.Domain.Notifications;
+
+namespace IBGE.Api.Domain.ValueObjects
 {
-    public sealed class Email
+    public class Email : Notifiable
     {
         protected Email() { }
-        public Email(string email) => Validate(email);
-
-        public string Address { get; private set; }
-
-        private void Validate(string email)
+        public Email(string email)
         {
-            // Validar se o email é valido
+
         }
+
+        public string? Address { get; private set; }
+
     }
 }
 

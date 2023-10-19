@@ -1,30 +1,34 @@
 ﻿using System;
-namespace IBGE.Api.Domains.Entities
+using IBGE.Api.Domain.Notifications;
+using IBGE.Api.Domain.ValueObjects;
+using IBGE.Api.Domain.Entities;
+
+namespace IBGE.Api.Domain.Entities
 {
     public class Town
     {
-        public Town(int stateCode, string name)
+        public Town(byte stateCode, string name)
         {
             ChangeState(stateCode);
             ChangeName(name);
         }
 
         public int TownId { get; private set; }
-        public int StateId { get; private set; }
-        public string Name { get; private set; }
-        public virtual State State { get; private set; }
+        public byte StateId { get; private set; }
+        public Name Name { get; private set; } = null!;
+        public virtual State? State { get; private set; }
 
         #region - Methods -
         public void ChangeName(string name)
         {
-            Name = name;
+            Name = new Name(name);
         }
 
         /// <summary>
         /// Modificar o codigo da propriedade Estado
         /// </summary>
         /// <param name="stateCode">Codigo do Estado no valor interiro</param>
-        public void ChangeState(int stateCode)
+        public void ChangeState(byte stateCode)
         {
             StateId = stateCode;
         }
@@ -33,7 +37,7 @@ namespace IBGE.Api.Domains.Entities
         /// Modificar a entidade Estado
         /// </summary>
         /// <param name="state">Entidade</param>
-        public void ChangeState(State state)
+        public void AddState(State state)
         {
             State = state;
         }

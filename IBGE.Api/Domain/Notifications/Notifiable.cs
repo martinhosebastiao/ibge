@@ -8,6 +8,8 @@ namespace IBGE.Api.Domain.Notifications
 
         protected Notifiable() => _notifications = new();
 
+        public IReadOnlyCollection<Notification> Notifications => _notifications;
+
         public bool HasValid => _notifications.Any() == false;
 
         public void Clear() => _notifications.Clear();
@@ -20,24 +22,6 @@ namespace IBGE.Api.Domain.Notifications
         }
 
         public void AddNotification(Type property, string message)
-        {
-            AddNotification(property?.Name ?? "", message);
-        }
-
-        public void AddNotifications(IEnumerable<Notification> notifications)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddNotifications(ICollection<Notification> notifications)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddNotifications(IList<Notification> notifications)
-        {
-            throw new NotImplementedException();
-        }
+            => AddNotification(property?.Name ?? "", message);
     }
 }
-

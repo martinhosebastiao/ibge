@@ -1,7 +1,8 @@
 ﻿using System;
-using IBGE.Api.Domains.ValueObjects;
+using IBGE.Api.Domain.Notifications;
+using IBGE.Api.Domain.ValueObjects;
 
-namespace IBGE.Api.Domains.Entities
+namespace IBGE.Api.Domain.Entities
 {
     public class User
     {
@@ -12,9 +13,9 @@ namespace IBGE.Api.Domains.Entities
             ChangePassword(password);
         }
 
-        public int UserId { get; private set; }
-        public Email Email { get; private set; }
-        public Password Password { get; private set; }
+        public short UserId { get; private set; }
+        public Email Email { get; private set; } = null!;
+        public Password Password { get; private set; } = null!;
 
         #region - Methods -
         public void ChangeEmail(string email) => Email = new Email(email);

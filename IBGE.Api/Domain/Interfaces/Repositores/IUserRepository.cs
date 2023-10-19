@@ -1,5 +1,5 @@
 ﻿using System;
-namespace IBGE.Domains.Shared.Abstraction.Repositores
+namespace IBGE.Api.Domain.Interfaces.Repositores
 {
 	public interface IUserRepository
 	{

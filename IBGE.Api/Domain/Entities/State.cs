@@ -1,21 +1,24 @@
 ﻿using System;
-namespace IBGE.Api.Domains.Entities
+using IBGE.Api.Domain.Notifications;
+using IBGE.Api.Domain.ValueObjects;
+
+namespace IBGE.Api.Domain.Entities
 {
-	public class State
-	{
-		private readonly List<Town> towns;
+    public class State: Notifiable
+    {
+        private readonly List<Town> towns = new();
 
-		protected State() { }
+        protected State() { }
         public State(string name, string acronym)
-		{
-			ChangeName(name);
-			ChangeAcronym(acronym);
-		}
+        {
+            ChangeName(name);
+            ChangeAcronym(acronym);
+        }
 
-		public int StateId { get; private set; }
-		public string Acronym { get; private set; }
-		public string Name { get; private set; }
-		public virtual IReadOnlyCollection<Town> Towns { get => towns; }
+        public byte StateId { get; private set; }
+        public string Acronym { get; private set; } = null!;
+        public Name Name { get; private set; } = null!;
+        public virtual IReadOnlyCollection<Town> Towns { get => towns; }
 
         #region - Methods -
         public void ChangeName(string name)

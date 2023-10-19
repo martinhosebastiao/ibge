@@ -1,5 +1,5 @@
 ﻿using System;
-namespace IBGE.Api.Domains.ValueObjects
+namespace IBGE.Api.Domain.ValueObjects
 {
     public sealed class Password
     {
