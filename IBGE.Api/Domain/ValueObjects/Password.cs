@@ -1,34 +1,52 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using IBGE.Api.Domain.Extensions;
+using IBGE.Api.Domain.Notifications;
+
 namespace IBGE.Api.Domain.ValueObjects
 {
-    public sealed class Password
+    public class Password : Notifiable
     {
         protected Password() { }
 
         public Password(string password) => Encrypt(password);
 
 
-        public string Hash { get; private set; }
+        public string? Hash { get; private set; }
 
         #region - Methods -
         private void Validate(string password)
         {
             // Implementar regras de validação de uma password
+
+            if (password.IsNotNullOrEmpty() == false)
+                AddNotification(password, "Password invalida");
         }
+
         private void Encrypt(string password)
         {
-            Validate(password);
+            try
+            {
+                Validate(password);
 
-            // Encriptar a password caso seja valida
-            // Atribuir a hash obtida para a propriedade Has
-        }
-        public bool Compare(string password)
-        {
-            // Encriptar a password recebido no parametro
-            // Comparar se password é igual Hash existente na propriedade
+                // Encriptar a password caso seja valida
 
-            return false;
+                if (HasValid)
+                {
+                    var plainText = Encoding.Unicode.GetBytes(password);
+                    var plainTextEncripted = Aes.Create().EncryptEcb(plainText, PaddingMode.PKCS7).ToArray();
+
+                    // Atribuir a hash obtida para a propriedade Hash
+                    Hash = Convert.ToBase64String(plainTextEncripted).Substring(1, 50);
+                }
+            }
+            catch (Exception)
+            {
+                AddNotification(password, "Falha no encriptação da password");
+            }
         }
+
         #endregion
     }
 }

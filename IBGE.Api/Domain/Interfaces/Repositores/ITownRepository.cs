@@ -3,7 +3,7 @@ using IBGE.Api.Domain.Entities;
 
 namespace IBGE.Api.Domain.Interfaces.Repositores
 {
-	public interface IStateRepository : IBaseRepository<State>
+	public interface ITownRepository : IBaseRepository<Town>
     {
 	}
 }

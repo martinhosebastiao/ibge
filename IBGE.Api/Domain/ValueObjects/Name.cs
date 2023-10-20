@@ -15,10 +15,10 @@ namespace IBGE.Api.Domain.ValueObjects
                 return;
             }
 
-            AddNotification(Value,"Nome invalido");
+            AddNotification(name,"O nome indicado é invalido");
         }
 
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 }
 

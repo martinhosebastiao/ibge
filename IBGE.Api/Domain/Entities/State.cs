@@ -1,4 +1,5 @@
 ﻿using System;
+using IBGE.Api.Domain.Extensions;
 using IBGE.Api.Domain.Notifications;
 using IBGE.Api.Domain.ValueObjects;
 
@@ -23,11 +24,17 @@ namespace IBGE.Api.Domain.Entities
         #region - Methods -
         public void ChangeName(string name)
         {
-            Name = name;
+            Name = new Name(name);
         }
         public void ChangeAcronym(string acronym)
         {
-            Acronym = acronym;
+            if (acronym.IsNotNullOrEmpty())
+            {
+                Acronym = acronym;
+                return;
+            }
+
+            AddNotification(acronym, "Sigla invalida");
         }
         #endregion
 

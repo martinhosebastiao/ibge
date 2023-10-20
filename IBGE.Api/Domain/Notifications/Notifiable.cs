@@ -10,18 +10,22 @@ namespace IBGE.Api.Domain.Notifications
 
         public IReadOnlyCollection<Notification> Notifications => _notifications;
 
-        public bool HasValid => _notifications.Any() == false;
+        /// <summary>
+        /// Valida se foi adicionado alguma notificação de erro.
+        /// Retorna um boolean True = Valido
+        /// </summary>
+        public bool HasValid => _notifications.Count == 0;
 
         public void Clear() => _notifications.Clear();
 
-        public void AddNotification(string key, string message)
+        public void AddNotification(string? key, string message)
         {
-            var notification = new Notification(key, message);
+            var notification = new Notification(key?? string.Empty, message);
 
             _notifications.Add(notification);
         }
 
-        public void AddNotification(Type property, string message)
-            => AddNotification(property?.Name ?? "", message);
+        public void AddNotification(Type? property, string message)
+            => AddNotification(property?.Name ?? string.Empty, message);
     }
 }

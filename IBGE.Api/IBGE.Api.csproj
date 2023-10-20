@@ -11,6 +11,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +20,6 @@
     <None Remove="Infrastructure\Persistence\" />
     <None Remove="Infrastructure\Repository\" />
     <None Remove="Infrastructure\Logging\" />
-    <None Remove="Infrastructure\IoC\" />
     <None Remove="Application\" />
     <None Remove="Domain\" />
     <None Remove="Application\ViewModels\" />
@@ -26,13 +27,13 @@
     <None Remove="Application\Validations\" />
     <None Remove="Domain\Notifications\" />
     <None Remove="Application\Services\" />
+    <None Remove="Infrastructure\Persistence\Map\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Infrastructure\Persistence\" />
     <Folder Include="Infrastructure\Repository\" />
     <Folder Include="Infrastructure\Logging\" />
-    <Folder Include="Infrastructure\IoC\" />
     <Folder Include="Application\" />
     <Folder Include="Domain\" />
     <Folder Include="Application\ViewModels\" />
@@ -40,5 +41,6 @@
     <Folder Include="Application\Validations\" />
     <Folder Include="Domain\Notifications\" />
     <Folder Include="Application\Services\" />
+    <Folder Include="Infrastructure\Persistence\Map\" />
   </ItemGroup>
 </Project>
