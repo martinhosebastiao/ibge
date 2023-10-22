@@ -1,5 +1,6 @@
 ﻿using System;
 using IBGE.Api.Domain.Entities;
+using IBGE.Api.Domain.Shared;
 using IBGE.Api.Infrastructure.Persistence.Map;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +8,7 @@ namespace IBGE.Api.Infrastructure.Persistence
 {
     public class IBGEContext : DbContext
     {
-        public IBGEContext(DbContextOptions<IBGEContext> options) { }
+        public IBGEContext(DbContextOptions<IBGEContext> options){}
 
         #region - DbSet Configurations -
         public DbSet<User> Users { get; private set; }
@@ -17,7 +18,7 @@ namespace IBGE.Api.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlServer(AppSetting.ConnectionString);
 
             base.OnConfiguring(optionsBuilder);
         }

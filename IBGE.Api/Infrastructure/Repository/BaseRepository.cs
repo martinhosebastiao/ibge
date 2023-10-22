@@ -1,45 +1,29 @@
 ﻿using System;
-using System.Linq.Expressions;
+using System.Collections.Generic;
 using IBGE.Api.Domain.Interfaces.Repositores;
 using IBGE.Api.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace IBGE.Api.Infrastructure.Repository
 {
-	public abstract class BaseRepository<Entity> : IDisposable, IBaseRepository<Entity> where Entity : class
+    public class BaseRepository<Entity> : IDisposable, IBaseRepository<Entity> where Entity : class
     {
-        internal readonly IBGEContext context;
-        internal readonly DbSet<Entity> DbSet;
         internal readonly ILogger logger;
-
-        public BaseRepository(IBGEContext context, ILogger logger)
-		{
-            this.context = context;
-            this.logger = logger;
-            DbSet = this.context.Set<Entity>();
-		}
-
-        public async Task<IList<Entity>> GetAllAsync()
+        internal readonly IBGEContext context;
+        private readonly DbSet<Entity> dbSet;
+        public BaseRepository(IBGEContext context, ILoggerFactory logger)
         {
-            try
-            {
-                var data = await DbSet.ToListAsync();
-
-                return data;
-            }
-            catch (Exception ex)
-            {
-                logger.LogCritical(ex,ex?.Message);
-
-                return new List<Entity>();
-            }
+            this.logger = logger.CreateLogger("");
+            this.context = context;
+            dbSet = this.context.Set<Entity>();
         }
 
-        public async Task<Entity?> GetIdAsync<Type>(Type id)
+
+        public async Task<IList<Entity>?> GetAllAsync()
         {
             try
             {
-                var data = await DbSet.FindAsync();
+                var data = await dbSet.AsNoTracking().ToListAsync();
 
                 return data;
             }
@@ -51,11 +35,11 @@ namespace IBGE.Api.Infrastructure.Repository
             }
         }
 
-        public async Task<dynamic> FindAsync(Expression<Func<Entity, bool>> condition)
+        public async Task<Entity?> GetByIdAsync<Type>(Type id)
         {
             try
             {
-                var data = await DbSet.Where(condition).ToListAsync();
+                var data = await dbSet.FindAsync(id);
 
                 return data;
             }
@@ -63,7 +47,7 @@ namespace IBGE.Api.Infrastructure.Repository
             {
                 logger.LogCritical(ex, ex?.Message);
 
-                return string.Empty;
+                return null;
             }
         }
 
@@ -71,7 +55,7 @@ namespace IBGE.Api.Infrastructure.Repository
         {
             try
             {
-                var data = await DbSet.AddAsync(entity);
+                var data = await dbSet.AddAsync(entity);
 
                 return data.Entity;
             }
@@ -87,7 +71,7 @@ namespace IBGE.Api.Infrastructure.Repository
         {
             try
             {
-                var data = DbSet.Update(entity);
+                var data = dbSet.Update(entity);
 
                 return data.Entity;
             }
@@ -103,7 +87,7 @@ namespace IBGE.Api.Infrastructure.Repository
         {
             try
             {
-                var data =  DbSet.Remove(entity);
+                var data = dbSet.Remove(entity);
 
                 return data.Entity == entity;
             }
@@ -111,6 +95,32 @@ namespace IBGE.Api.Infrastructure.Repository
             {
                 logger.LogCritical(ex, ex?.Message);
 
+                return false;
+            }
+        }
+
+        public async Task<int> CompleteAsync()
+        {
+            try
+            {
+                var result = await context.SaveChangesAsync();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+        public async Task<bool> RollbackAsync()
+        {
+            try
+            {
+                await context.DisposeAsync();
+                return true;
+            }
+            catch (Exception)
+            {
                 return false;
             }
         }

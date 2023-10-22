@@ -5,6 +5,12 @@ VisualStudioVersion = 25.0.1706.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBGE.Api", "IBGE.Api\IBGE.Api.csproj", "{35AB8195-2FBD-478A-BEFE-3892B189265E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CA465E84-A22A-4136-817B-A46C09FD7280}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D8BA3983-E605-463F-9E07-FF60CB0215B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBGE.Domain.Test", "IBGE.Domain.Test\IBGE.Domain.Test.csproj", "{8A95156C-6DB7-48AE-81CE-65C66AE55EC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,10 @@ Global
 		{35AB8195-2FBD-478A-BEFE-3892B189265E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35AB8195-2FBD-478A-BEFE-3892B189265E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35AB8195-2FBD-478A-BEFE-3892B189265E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A95156C-6DB7-48AE-81CE-65C66AE55EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A95156C-6DB7-48AE-81CE-65C66AE55EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A95156C-6DB7-48AE-81CE-65C66AE55EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A95156C-6DB7-48AE-81CE-65C66AE55EC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -23,5 +33,7 @@ Global
 		SolutionGuid = {4492547A-D927-44DD-A867-DA253782D582}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D8BA3983-E605-463F-9E07-FF60CB0215B9} = {CA465E84-A22A-4136-817B-A46C09FD7280}
+		{8A95156C-6DB7-48AE-81CE-65C66AE55EC9} = {D8BA3983-E605-463F-9E07-FF60CB0215B9}
 	EndGlobalSection
 EndGlobal

@@ -1,45 +1,56 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Asp.Versioning;
+using IBGE.Api.Domain.Shared;
+using IBGE.Api.Infrastructure.DependenceInjection;
+using IBGE.Api.Presentation.Configurations.Extensions;
+using IBGE.Api.Presentation.Endpoints;
+
+var builder = WebApplication.CreateBuilder(args);
+var version1 = new ApiVersion(1,1);
+var version2 = new ApiVersion(1,2);
+
+
+//Obter a string de conexão apartir do ficheiro de configuração
+AppSetting.ConnectionString = builder.Configuration.GetConnectionString("IBGEConnection") ?? string.Empty;
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddCors();
+builder.Services.AddLogging();
+builder.Services.AddSwaggerCustom();
+builder.Services.AddSecurityCustom();
+builder.Services.AddProjectDependences();
+builder.Services.AddApiVersioningCustom();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var app = builder.Build();
+
+if (app.Environment.IsProduction())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    //Garante o reencaminhamento https dos request, deve sempre estar antes de qualquer middleware
+    app.Use((context, next) =>
+    {
+        context.Request.Scheme = "https";
+        return next();
+    });
 }
 
+app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+var route = app.NewVersionedApi()
+               .MapGroup(AppSetting.PrefixRoute)
+               .HasApiVersion(version1)
+               .HasApiVersion(version2)
+               .RequireAuthorization();
+
+route.MapUser("/user")
+     .MapState("/state")
+     .MapTown("/town");
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseSwaggerCustom();
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
 

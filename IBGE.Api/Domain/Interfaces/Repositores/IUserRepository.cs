@@ -5,7 +5,7 @@ namespace IBGE.Api.Domain.Interfaces.Repositores
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-
+        Task<User?> GetByEmailAsync(string email);
     }
 }
 

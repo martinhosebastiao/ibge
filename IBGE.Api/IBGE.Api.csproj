@@ -13,34 +13,46 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
+    <PackageReference Include="Asp.Versioning.Http" Version="7.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Infrastructure\" />
     <None Remove="Infrastructure\Persistence\" />
     <None Remove="Infrastructure\Repository\" />
-    <None Remove="Infrastructure\Logging\" />
     <None Remove="Application\" />
     <None Remove="Domain\" />
-    <None Remove="Application\ViewModels\" />
     <None Remove="Application\Interfaces\" />
-    <None Remove="Application\Validations\" />
     <None Remove="Domain\Notifications\" />
     <None Remove="Application\Services\" />
     <None Remove="Infrastructure\Persistence\Map\" />
+    <None Remove="Infrastructure\DependenceInjection\" />
+    <None Remove="Domain\Shared\" />
+    <None Remove="Presentation\" />
+    <None Remove="Presentation\Configurations\" />
+    <None Remove="Presentation\Configurations\Extensions\" />
+    <None Remove="Presentation\Configurations\Swagger\" />
+    <None Remove="Application\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Infrastructure\Persistence\" />
     <Folder Include="Infrastructure\Repository\" />
-    <Folder Include="Infrastructure\Logging\" />
     <Folder Include="Application\" />
     <Folder Include="Domain\" />
-    <Folder Include="Application\ViewModels\" />
     <Folder Include="Application\Interfaces\" />
-    <Folder Include="Application\Validations\" />
     <Folder Include="Domain\Notifications\" />
     <Folder Include="Application\Services\" />
     <Folder Include="Infrastructure\Persistence\Map\" />
+    <Folder Include="Infrastructure\DependenceInjection\" />
+    <Folder Include="Domain\Shared\" />
+    <Folder Include="Presentation\" />
+    <Folder Include="Presentation\Configurations\" />
+    <Folder Include="Presentation\Configurations\Extensions\" />
+    <Folder Include="Presentation\Configurations\Swagger\" />
+    <Folder Include="Application\Models\" />
   </ItemGroup>
 </Project>

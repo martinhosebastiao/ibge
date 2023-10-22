@@ -6,6 +6,7 @@ namespace IBGE.Api.Domain.ValueObjects
 {
     public sealed class Name: Notifiable
     {
+        protected Name() { }
         public Name(string name)
         {
 
